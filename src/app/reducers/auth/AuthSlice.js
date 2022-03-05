@@ -1,35 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import Config from "../../constants/Config";
-export const SendOTPAction = createAsyncThunk(
-	"auth/SendOTPAction",
-	async (data, thunkAPI) => {
-		try {
-			const response = await axios.post(Config.apiUrl + "auth/createOTP", data);
+import firebase from "../../database/FirebaseDB";
 
-			return response.data;
-		} catch (e) {
-			return thunkAPI.rejectWithValue(e.response.data);
-		}
-	}
-);
-export const VerifyOTPAction = createAsyncThunk(
-	"auth/VerifyOTPAction",
-	async (data, thunkAPI) => {
-		try {
-			const response = await axios.post(Config.apiUrl + "auth/verifyOTP", data);
-
-			return response.data;
-		} catch (e) {
-			return thunkAPI.rejectWithValue(e.response.data);
-		}
-	}
-);
 export const LoginAction = createAsyncThunk(
 	"auth/LoginAction",
 	async (data, thunkAPI) => {
 		try {
-			const response = await axios.post(Config.apiUrl + "auth/user", data);
+			const response = await firebase
+				.auth()
+				.createUserWithEmailAndPassword("info@pradakshina.in", "Swadha@20684$");
 
 			return response.data;
 		} catch (e) {
@@ -67,50 +45,6 @@ export const authSlice = createSlice({
 		},
 	},
 	extraReducers: {
-		/* Send OTP */
-		[SendOTPAction.pending]: (state) => {
-			state.inAction = true;
-		},
-		[SendOTPAction.fulfilled]: (state, { payload }) => {
-			state.inAction = null;
-
-			if (payload.error) {
-				state.error = true;
-				state.message = payload.message;
-			} else {
-				state.error = false;
-				state.otp = payload.data;
-			}
-		},
-		[SendOTPAction.rejected]: (state, action) => {
-			state.inAction = null;
-			state.error = true;
-			state.message = "Invalid request ...";
-		},
-
-		/* Verify OTP */
-		[VerifyOTPAction.pending]: (state) => {
-			state.inAction = true;
-		},
-		[VerifyOTPAction.fulfilled]: (state, { payload }) => {
-			state.inAction = null;
-
-			if (payload.error) {
-				state.error = true;
-				state.message = payload.message;
-			} else {
-				state.inAction = false;
-        state.error = false;
-				state.user = payload.user;
-				state.token = payload.token;
-			}
-		},
-		[VerifyOTPAction.rejected]: (state, action) => {
-			state.inAction = null;
-			state.error = true;
-			state.message = "Invalid request ...";
-		},
-
 		/* Login Action */
 		[LoginAction.pending]: (state) => {
 			state.inAction = true;

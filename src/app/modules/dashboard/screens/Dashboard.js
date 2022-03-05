@@ -1,7 +1,17 @@
+import { useDispatch, useSelector } from "react-redux";
+import { Footer } from "../../../components/Footer";
+import { Header } from "../../../components/Header";
 export default function Dashboard() {
+	const dispatch = useDispatch();
+
+	const s = useSelector((state) => state);
+
+	console.log(s);
 	return (
-		<div>
-			<h1>Dashboard</h1>
-		</div>
+		<>
+			<Header />
+			<section id="container">Dashboard</section>
+			<Footer />
+		</>
 	);
 }
