@@ -18,16 +18,40 @@ export const Header = () => {
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav">
-						
+					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
 							<Link class="nav-link active" to="/login">
 								Sign In
 							</Link>
 						</li>
 						<li class="nav-item">
-							<Link class="nav-link active" to="/register">
-								Sign Up
+							<Link class="nav-link active" to="/dashboard">
+								Dashboboard
+							</Link>
+						</li>
+						<li class="nav-item">
+							<Link class="nav-link active" to="/employee">
+								Employee
+							</Link>
+						</li>
+						<li class="nav-item">
+							<Link class="nav-link active" to="/leave">
+								Leave
+							</Link>
+						</li>
+						<li class="nav-item">
+							<Link class="nav-link active" to="/attendance">
+								Attendance
+							</Link>
+						</li>
+						<li class="nav-item">
+							<Link class="nav-link active" to="/project">
+								Project
+							</Link>
+						</li>
+						<li class="nav-item">
+							<Link class="nav-link active" to="/logout">
+								Logout
 							</Link>
 						</li>
 					</ul>
