@@ -19,6 +19,7 @@ export const LoginForm = (props) => {
 	useEffect(() => {
 		if (error == true) {
 			//Alert.alert("Error", message);
+			console.log(message);
 			dispatch(clearFlag());
 		}
 
@@ -35,8 +36,8 @@ export const LoginForm = (props) => {
 	return (
 		<Formik
 			initialValues={{
-				login_id: "krishna.shubhkamna@gmail.com",
-				password: "Krishna@86#",
+				login_id: "",
+				password: "",
 			}}
 			validationSchema={Schema}
 			validateOnChange={false}
@@ -58,7 +59,7 @@ export const LoginForm = (props) => {
 						onChange={handleChange}
 						onBlur={handleBlur}
 						value={values.login_id}
-						error={errors.email && touched.email && errors.email}
+						error={errors.login_id && touched.login_id && errors.login_id}
 					/>
 
 					<AppTextInput
