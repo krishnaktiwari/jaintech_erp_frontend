@@ -36,8 +36,8 @@ export const LoginForm = (props) => {
 	return (
 		<Formik
 			initialValues={{
-				login_id: "",
-				password: "",
+				login_id: "krishna.shubhkamna@gmail.com",
+				password: "Krishna@86#",
 			}}
 			validationSchema={Schema}
 			validateOnChange={false}

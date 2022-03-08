@@ -6,7 +6,7 @@ export default function Dashboard() {
 
 	const s = useSelector((state) => state);
 
-	console.log(s);
+	
 	return (
 		<>
 			<Header />

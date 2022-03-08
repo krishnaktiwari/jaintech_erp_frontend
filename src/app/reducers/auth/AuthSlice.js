@@ -7,9 +7,9 @@ export const LoginAction = createAsyncThunk(
 		try {
 			const response = await firebase
 				.auth()
-				.createUserWithEmailAndPassword("info@pradakshina.in", "Swadha@20684$");
+				.signInWithEmailAndPassword(data.login_id, data.password);
 
-			return response.data;
+			return response;
 		} catch (e) {
 			return thunkAPI.rejectWithValue(e.response.data);
 		}
@@ -47,11 +47,20 @@ export const authSlice = createSlice({
 	extraReducers: {
 		/* Login Action */
 		[LoginAction.pending]: (state) => {
+			console.log("Action Pending");
 			state.inAction = true;
 		},
 		[LoginAction.fulfilled]: (state, { payload }) => {
+			console.log("Action Fulfilled");
 			state.inAction = null;
 
+			state.token = payload.user._delegate.accessToken;
+
+			state.user = payload.user._delegate;
+
+			state.error = false;
+
+			/*
 			if (payload.error) {
 				state.error = true;
 				state.message = payload.message;
@@ -60,9 +69,13 @@ export const authSlice = createSlice({
 				state.user = payload.user;
 				state.token = payload.token;
 			}
+      */
 		},
 
-		[LoginAction.rejected]: (state, { payload }) => {},
+		[LoginAction.rejected]: (state, { payload }) => {
+			console.log("Action rejected");
+			state.inAction = null;
+		},
 	},
 });
 export const { setAuth, clearAuth, clearFlag } = authSlice.actions;
